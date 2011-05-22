@@ -1,4 +1,4 @@
-Google Code Jam 2011 - Round 1A
+Google Code Jam 2011 - Round 1B
 ---
 
 ### Contest Analysis
