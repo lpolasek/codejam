@@ -1,0 +1,93 @@
+#!/usr/bin/env python2
+import sys
+import math
+import pdb
+
+cache = [ [ -1 ] * 100 ] * 100 
+
+# if (reminder == 2) and (S) and ((average + 2) <= 10):
+# if (S) and (score):
+
+def getMaxScore(score, surprising):
+	average = score // 3
+	reminder = score % 3
+
+	if reminder:
+		if surprising and (reminder == 2) and ((average + 2) <= 10):
+			return average + 2
+		elif not surprising:
+			return average + 1
+	else:
+		if surprising and score:
+			return average + 1
+		else:
+			return average
+
+# 	pdb.set_trace()
+	return -10000
+
+def countScore(score,surprising,p):
+# 	print "score: %d, surprising: %d, maxScore: %d" % (score, surprising, getMaxScore(score, surprising))
+	if (getMaxScore(score, surprising) >= p):
+		return 1
+	return 0
+
+def solve(S,p,scores,i=0,res=[]):
+
+# 	print ('\t' * i) +"solve(S=%d,p=%d,i=%d)" % (S,p,i),
+# 	print res
+
+	if (i == len(scores)):
+		if (S > 0):
+# 			pdb.set_trace()
+			print ('\t' * i) + "INVALID"
+			return -10000
+		else:
+# 			print ('\t' * i),
+# 			print res
+			return 0
+
+	if cache[i][S] != -1:
+		return cache[i][S]
+
+	maxi = -10000
+	score = scores[i]
+
+	res.append(getMaxScore(score, False))
+	print ('\t' * i) + "score: %d, False" % score,
+	print res
+	cs = countScore(score,False,p)
+	sol = (solve(S,p,scores,i+1,res))
+	if( getMaxScore(score, False) >= 0 ):
+		maxi = max(maxi,cs + sol)
+	print ('\t' * i) +"maxi: %d, countScore: %d, solve: %d" % (maxi, cs, sol)
+
+	res.pop()
+	if S:
+		res.append(getMaxScore(score, True))
+		print ('\t' * i) + "score: %d, True" % score,
+		print res
+
+		cs = countScore(score,True,p)
+		sol = (solve(S-1,p,scores,i+1,res))
+		if( getMaxScore(score, True) >= 0 ):
+			maxi = max(maxi,cs + sol)
+		print ('\t' * i) +"maxi: %d, countScore: %d, solve: %d" % (maxi, cs, sol)
+
+		res.pop()
+
+	cache[i][S] = maxi
+	return cache[i][S]
+
+n = int(sys.stdin.readline())
+
+for i in range(1,n+1):
+        linea = [ int(x) for x in sys.stdin.readline()[:-1].split(' ')]
+	N = linea[0]
+	S = linea[1]
+	p = linea[2]
+	scores = linea[3:]
+	cache = [ [ -1 ] * 100 ] * 100 
+	assert len(scores) == N
+        result = max(0,solve(S,p,scores))
+        print "Case #%d: %s" % (i, result)
