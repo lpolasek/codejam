@@ -1,4 +1,4 @@
-Problem A Analysis
+Problem B Analysis
 ------------------
 
 Clever contestants will have noticed that this problem might be based on an actual television show. The author of the problem found himself watching an episode of  _Dancing With the Stars_  (the show and its distributor, BBC Worldwide, do not endorse and are not involved with Google Code Jam), and having forgotten whether any of the contestants had earned a score of at least 8 from any of the judges.

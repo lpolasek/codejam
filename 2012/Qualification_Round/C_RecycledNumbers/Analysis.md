@@ -1,4 +1,4 @@
-Problem A Analysis
+Problem C Analysis
 ------------------
 
 Many contestants got stuck in this problem because of the sample test case number 4. Let's say  _n_  is 1212, then after moving 1 or 3 digits you will get 2121, hence the pair (1212, 2121) will be counted twice if you count all possible moves. You can avoid this by breaking out of the loop once you reach the original number again, which will happen after moving 2 digits in the above example.
